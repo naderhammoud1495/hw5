@@ -1,6 +1,6 @@
-hw5_ansible
+##hw5_ansible
 
- build objects in aws cloud by ansible.
+build objects in aws cloud by ansible.
 
 run the yml files: 
 
