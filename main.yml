@@ -3,7 +3,7 @@
   tasks:
     - name: create vpc
       ec2_vpc_net:
-          name: "hw4_ansible"
+          name: "hw5_ansible"
           cidr_block: "172.11.0.0/16"
           region: "{{ region }}"
           state: present
@@ -19,7 +19,7 @@
          aws_secret_key: "{{ aws_secret_key }}"
          state: "present"
          tags:
-            Name: "hw4_gtw"
+            Name: "hw5_gtw"
       register: igw
 
     - name: create public subnet
@@ -32,7 +32,7 @@
           aws_secret_key: "{{ aws_secret_key }}"
           map_public: yes
           resource_tags:
-             Name: "hw4_ansible_subnet"
+             Name: "hw5_ansible_subnet"
       register: sub
     - name: Route IGW
       ec2_vpc_route_table:
@@ -46,12 +46,12 @@
             - dest: 0.0.0.0/0
               
           tags:
-            Name: "hw4_route_table"
+            Name: "hw5_route_table"
 
     - name: Create Security Group
       ec2_group:
-         name: hw4-sg
-         description: hw4 Security Group
+         name: hw5-sg
+         description: hw5 Security Group
          vpc_id: "{{ create.vpc.id }}"
          region: "{{ region }}"
          aws_access_key: "{{ aws_access_key }}"
@@ -89,7 +89,7 @@
         vpc_subnet_id: "{{ sub.subnet.id }}"
         key_name: "{{ keypair.key.name }}"
         user_data: "#!/bin/bash \n sudo apt-get update \n sudo apt-get install -y docker.io  \n sudo docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro>        count_tag:
-          Name: hw4Server
+          Name: hw5Server
         exact_count: 1
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
